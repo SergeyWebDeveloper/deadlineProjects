@@ -10,5 +10,5 @@ const config = {
 };
 
 export const firebaseApp = firebase.initializeApp(config);
-export const rersonalDB = firebase.database().ref('personal');
+export const personalDB = firebase.database().ref('personal');
 export const projectsDB = firebase.database().ref('projects');

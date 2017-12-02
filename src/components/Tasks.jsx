@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {projectsDB} from '../firebase';
+import {randomFunction} from '../randomNumber';
 
 class Tasks extends Component {
 
@@ -10,6 +11,7 @@ class Tasks extends Component {
             projectsDB.push({
                 name: this.nameProject.input.value,
                 link: this.linkProject.input.value,
+                id: randomFunction(),
                 performers: {
                     main: '',
                     inside: ''

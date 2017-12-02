@@ -1,7 +1,7 @@
 import React , {Component} from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import {rersonalDB} from '../firebase';
+import {personalDB} from '../firebase';
 import {randomFunction} from '../randomNumber';
 
 class Personal extends Component{
@@ -16,7 +16,7 @@ class Personal extends Component{
               active: true,
               id: randomFunction()
             };
-            rersonalDB.push(obj);
+            personalDB.push(obj);
         }
     }
 
