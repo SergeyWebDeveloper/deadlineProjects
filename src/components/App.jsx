@@ -4,6 +4,10 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
+// import Personal from './Personal';
+import Tasks from './Tasks';
+import {firebaseApp} from '../firebase';
+import {connect} from 'react-redux';
 import {
     Table,
     TableBody,
@@ -25,29 +29,21 @@ class App extends Component {
             height: '400px'
         }
     }
+
+    signOutGoogle(){
+        firebaseApp.auth().signOut();
+    }
+
     render(){
+        const {user} = this.props.user;
         return(
             <div className="wrapper">
                 <div className="signin">
-                    <p>Вы вошли как: <span>test@test.ru</span></p>
+                    <p>Вы вошли как: <strong>{user.name}</strong></p>
+                    <p>Ваш email: <em>{user.email}</em></p>
                 </div>
-                <div className="inputdata">
-                    <div className="input__name">
-                        <TextField
-                            floatingLabelText="Название проекта"
-                        />
-                    </div>
-                    <div className="input__link">
-                        <TextField
-                            floatingLabelText="Ссылка на задачу"
-                        />
-                    </div>
-                    <div className="input__btn">
-                        <RaisedButton
-                            label="Добавить"
-                        />
-                    </div>
-                </div>
+
+                <Tasks />
 
                 <div className="table__data">
                     <Table
@@ -124,10 +120,21 @@ class App extends Component {
                         </TableBody>
                     </Table>
                 </div>
-
+                {/*<Personal />*/}
+                <RaisedButton
+                    label="Выйти с аккаунта"
+                    primary={true}
+                    onClick={()=>this.signOutGoogle()}
+                />
             </div>
         )
     }
 }
 
-export default App;
+function mapStateToProps(state) {
+    return {
+        user: state
+    }
+}
+
+export default connect(mapStateToProps,null)(App);
