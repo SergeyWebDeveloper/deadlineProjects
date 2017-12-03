@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
+import SelectItemElem from './SelectItemElem';
 
 import {
     TableRow,
@@ -9,32 +8,34 @@ import {
 } from 'material-ui/Table';
 
 class ProjectItem extends Component{
+
+		constructor(){
+			super();
+			this.state={
+				mainPage: '',
+				insidePage: '',
+				date: ''
+			};
+		}
+
+    handleOnChangeMain(e,data,keyUser){
+				this.setState({mainPage: keyUser});
+    }
+
     render(){
-        const {link,name,performers} = this.props.project;
-        const {users} = this.props;
-        // console.log(users[0].name);
+        const {link,name,performers,serverKey} = this.props.project;
         return(
             <TableRow>
                 <TableRowColumn><a target="_blank" href={link}>{name}</a></TableRowColumn>
                 <TableRowColumn>
-                    <SelectField
-                        floatingLabelText="Ответственный"
-                        value=''
-                    >
-                        {users.map((user)=>{
-                            return <MenuItem value={user.serverKey} primaryText={user.name}  />;
-                        })}
-                    </SelectField>
+
+                    <SelectItemElem onChange={(e,data,key)=>this.handleOnChangeMain(e,data,key)} />
+
                 </TableRowColumn>
                 <TableRowColumn>
-                    <SelectField
-                        floatingLabelText="Ответственный"
-                        value=''
-                    >
-                        {users.map((user)=>{
-                            return <MenuItem value={user.serverKey} primaryText={user.name}  />;
-                        })}
-                    </SelectField>
+
+                    <SelectItemElem />
+
                 </TableRowColumn>
                 <TableRowColumn>
                     <DatePicker hintText="Дедлайн" />
